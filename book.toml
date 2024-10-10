@@ -1,0 +1,18 @@
+[book]
+authors = ["Sebastian Kutter"]
+language = "de"
+multilingual = false
+src = "src"
+title = "Ansible Lab"
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[preprocessor.alerts]
+
+[output]
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
