@@ -52,7 +52,7 @@ Im Einzelnen bedeutet das:
         Eine kurze Einführung in Ansible, inklusive einer Erklärung der Grundkonzepte wie Playbooks, Rollen und Inventories
     - Warum?
         Darstellung der Vorteile von Ansible; Automatisierung, Orchestrierung innerhalb einer IT-Infrastruktur und Wiederholbarkeit
-    - Grundlegende Nutzung
+    - Grundlegende Nutzung von Ansible
         Beispielhafte Playbooks anhand von UNIX Systemen
 
 2. Gitea als Binary Installation auf einem GIT Server einrichten
