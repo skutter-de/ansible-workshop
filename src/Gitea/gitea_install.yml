@@ -1,0 +1,61 @@
+- name: Gitea install
+  hosts: git
+  remote_user: root
+  tasks:
+    - name: Create a system group 'git'
+      ansible.builtin.group:
+        name: git
+        system: true
+
+    - name: Create a system user 'git' with specific settings
+      ansible.builtin.user:
+        name: git
+        system: true
+        shell: /bin/bash
+        comment: "Git Version Control"
+        group: git
+        home: /home/git
+        create_home: true
+
+    - name: Create Gitea directories
+      ansible.builtin.file:
+        path: "/var/lib/gitea/{{ item }}"
+        state: directory
+        owner: git
+        group: git
+        mode: '0750'
+      loop:
+        - custom
+        - data
+        - log
+
+    - name: Create /etc/gitea directory
+      ansible.builtin.file:
+        path: /etc/gitea
+        state: directory
+        owner: root
+        group: git
+        mode: '0770'
+
+    - name: Download gitea binary
+      ansible.builtin.get_url:
+        url: https://dl.gitea.com/gitea/1.22.3/gitea-1.22.3-linux-amd64
+        dest: /usr/local/bin/gitea
+        mode: '0777'
+        owner: root
+        group: root
+
+    - name: Copy gitea.service
+      ansible.builtin.copy:
+        src: "gitea.service"
+        dest: "/etc/systemd/system/gitea.service"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Enable Systemd and Daemon Reload
+      ansible.builtin.systemd_service:
+        name: gitea.service
+        enabled: true
+        state: started
+        daemon_reload: true
