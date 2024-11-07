@@ -1,9 +1,12 @@
 # Aufgabenbeschreibung
 
-Um Gitea mithilfe von Ansible zu installieren, orientieren wir uns an der [offiziellen Anleitung zur Installation von Gitea ](https://docs.gitea.com/installation/install-from-binary).
+Ziel dieser Aufgabe ist die Installation des Git-Services Gitea. Hier wird eine manuelle Installation, d.h. ohne fertiges Paket, durchgeführt. Installationspakete nehmen einem einige Schritte ab, die hier durch eine manuelle Installation erforderlich sind.
+
+Für die Installation von Gitea orientieren wir uns an der [offiziellen Installationsanleitung](https://docs.gitea.com/installation/install-from-binary).
 
 Die folgenden Schriite sollen per Ansible auf den Labs umgesetzt werden.
 
+Zu deiner Referenz ist unter [Manuelle Installation](./Manuelle%20Installation.md) eine vollständig manuelle Installation dokumentiert. Dort findest du auch einige Tipps zur Automatisierung mit Ansible.
 
 1. **Benutzer anlegen:** Es soll ein Gitea-User und die dazugehörige Gruppe erstellt werden, damit Gitea sicher und isoliert ausgeführt werden kann.
     Dementsprechend muss der Systemuser: **git** mit der Gruppe: **git** erstellt werden.

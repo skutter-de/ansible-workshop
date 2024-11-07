@@ -2,7 +2,15 @@
 
 Herzlich Willkommen im Ansible-Workshop. Hier sollen dir die Grundzüge von Ansible näher gebracht werden.
 
+## Ziel des Workshops
+
+Das Ziel dieses Workshops soll es sein, ein grundlegendes Grundverständnis von Ansible zu vermitteln. Dabei soll klar werden, für welche Zwecke Ansible genutzt werden kann und welche Vorteile es bietet. Hierbei steht die praktische Anwendung im Vordergrund, die Theorie spielt hier nur eine nachrangige Rolle. Viele Tricks und technische Details lernt man mit wachsender Erfahrung in der Anwendung.
+
 ## Aufbau der Workshop-Umgebung
+
+Du bekommst Zugriff auf ein eigenes kleines Netzwerk. So kann bspw. ein kleines Homelab oder eine Testumgebung aussehen. Die Umgebung ist auf das wesentliche beschränkt, um eine sinnvolle Umgebung zum Lernen zu bieten. Viele Dienste, die in großen Umgebungen üblich sind (Internetproxy, Loggingserver, Monitoring, Mirror-Server für Repositories, etc.), sind hier allerdings nicht vorhanden.
+
+Das Netzwerk besteht aus folgenden Maschinen und Diensten:
 
 ```mermaid
 architecture-beta
@@ -28,6 +36,14 @@ architecture-beta
     labnetworkbottom:R -- L:vault
 ```
 
+Der Bastion Host ist die Maschine, die für Entwicklungs- und Administationszwecke verwendet wird. Oftmals stehen Bastion Hosts in einer so genannten [DMZ (demilitarisierten Zone)](https://de.wikipedia.org/wiki/Demilitarisierte_Zone_(Informatik)). Hier wurde allerdings, aufgrund der hohen Komplexität, auf eine DMZ verzichtet.
+
+Auf dem Git Server wird im Rahmen des Workshops die Software Gitea installiert. Er stellt ein Zielsystem für Ansible dar.
+
+Auf dem Vaultwarden Server wird, bei ausreichender Zeit, der Passwortmanager Vaultwarden installiert. Auch dieser Server stellt ein Zielsystem für Ansible dar.
+
+Hier sind nochmal alle Server mit FQDN und IP-Adresse aufgeführt:
+
 | Host               | Beschreibung     | Hostname (FQDN)      | IP-Adresse     |
 | :----------------- | :--------------- | :------------------- | :------------- |
 | Bastion Host       | Admin Maschine   | bastion.lab.internal | 192.168.100.10 |
@@ -38,61 +54,37 @@ Der Zugriff auf die Umgebung ist mit Teleport realisiert. Dazu wird ein Account 
 
 ![Welcome E-Mail Screenshot](images/welcome-email.png)
 
-## Ziel des Workshops
+## Unterteilung des Workshops
+
+### Arbeiten mit Visual Studio Code
+
+Als erstes werden dir einige grundlegende Dinge zu der Arbeit mit dem Editor, Visual Studio Code (bzw. der Web-Variante code-server), erklärt. Hierdurch soll dir der Umgang und die Bearbeitung der Aufgaben etwas erleichtert werden.
+
+### Ansible-Grundlagen
+
+Bevor wir mit den Aufgaben beginnen, werden dir hier einige Grundlagen vermittelt. Von einem Überblick der Verzeichnisstruktur, über das Lesen der Ansible-Dokumentation bishin zum Schreiben des ersten Playbooks ist hier alles zu finden, um dir einen schnellen Einstieg zu ermöglichen. Im Laufe der Aufgaben kannst du dieses Kapitel auch referenzieren, wenn du dir Dinge nochmal in Erinnerung rufen oder dir die genaue Syntax möchtest.
+
+### Installation von Gitea
+
+In dieser ersten Aufgabe sollst du die Installation der Quellcodeverwaltungssoftware Gitea automatisieren. Die Installation der Software ist recht einfach, aber hat trotzdem genug Schritte, um eine automatisierte Installation empfehlenswert zu machen. Eine händische Installation wäre natürlich schneller als die Automatisierung (für mich ca. 10 Minuten vs. ca. 45 Minuten), allerdings ist der reine Zeitaufwand für die Installation nicht der Hauptgrund, der eine Automatisierung sinnvoll macht.
+
+### Installation von Vaultwarden
+
+Wenn du noch genug Zeit hast, oder das zu einem anderen Zeitpunkt machen möchtest, kannst du hier als zweite Aufgabe die Installation des Passwortmanager Vaultwarden automatisieren. Die Installation erfolgt hier als Docker-Container mit Docker Compose. Das Playbook, oder auch die Daten kannst du ganz einfach zu einem eigenen Server mitnehmen und dir damit deine eigene Vaultwarden-Instanz deployen. Viel Software wird per Docker Compose installiert, daher kann man auch viel von dem Code und dem Wissen weiter verwenden. Vaultwarden ist hier ein sehr einfaches (und nützliches!) Beispiel.
+
+---
+
+<br/>
+<br/>
+
+> [!CAUTION]
+> *Here be dragons!* Alles ab hier ist noch im Aufbau. Wenn du das nach Fertigstellung machen möchtest, melde dich gerne bei mir!
 
 
+### Eine ganze Umgebung mit nur einem Befehl
 
-1. Das Ziel dieses Workshops soll es sein, ein grundlegendes Grundverständnis von Ansible zu vermitteln. Dabei soll klar werden, für welche Zwecke Ansible genutzt werden kann und welche Vorteile es bietet.
+Nachdem wir einige Beispiele fertig automatisiert haben, wird es Zeit, das ganze zu einem Gesamtbild zusammenzufügen. Durch die Möglichkeit, Playbooks in andere Playbooks zu importieren, schreibst du hier ein Playbook `site.yml`, mit dem du die ganze Umgebung mit einem einzigen Befehl steuern kannst.
 
-    Im Einzelnen bedeutet das:
+### Integration mit Git
 
-    - Was ist Ansible?
-        Eine kurze Einführung in Ansible, inklusive einer Erklärung der Grundkonzepte wie Playbooks, Rollen und Inventories
-    - Warum?
-        Darstellung der Vorteile von Ansible; Automatisierung, Orchestrierung innerhalb einer IT-Infrastruktur und Wiederholbarkeit
-    - Grundlegende Nutzung von Ansible
-        Beispielhafte Playbooks anhand von UNIX Systemen
-
-2. Gitea als Binary Installation auf einem GIT Server einrichten
-
-    Die Aufgabe besteht darin, die Versionsverwaltungsplattform Gitea auf einem dedizierten „Git Server“ als Binary zu installieren. Ziel ist es, selbst einen GIT Server für eine Speicherung der Repositories bereitzustellen . Hierbei wird auf eine manuelle, direkt über die Kommandozeile gesteuerte Installation gesetzt, die mittels der Dokumentation unterstützt wird.
-
-
-
-        Vorbereitung des Servers: 
-            Sicherstellen, dass der Server über die notwendigen Voraussetzungen verfügt (z.B. ausreichender Speicherplatz, korrektes Betriebssystem, Nutzerrechte etc.).
-        Download und Installation der Gitea Binary: 
-            Schritt-für-Schritt-Anleitung zur Installation von Gitea als Binary.
-        Konfiguration von Gitea: 
-            Nach der Installation muss Gitea entsprechend konfiguriert werden (z.B. Konfiguration von Benutzerrechten, Repository-Pfaden und Netzwerkeinstellungen).
-        Starten des Gitea-Dienstes: 
-            Einrichtung des Dienstes, sodass Gitea nach einem Server-Neustart automatisch gestartet wird.
-        
-        Absicherung des Servers: 
-            Implementierung von Sicherheitsmaßnahmen wie der Absicherung der Kommunikation über SSL (HTTPS).
-
-3. Installation von Vaultwarden per Docker Compose auf dem "Vaultwarden Server"
-    Die Aufgabe besteht darin, Vaultwarden, eine leichtgewichtige und Self-Hosted Version des Passwortmanagers Bitwarden, auf einem dedizierten „Vaultwarden Server“ mittels Docker Compose zu installieren. Ziel ist es, eine sichere und zuverlässige Passwortverwaltungsplattform bereitzustellen, die über eine einfache Weboberfläche oder per Handy-App zugänglich ist.
-
-        Vorbereitung des Servers: 
-            Installation von Docker und Docker Compose sowie Sicherstellung, dass die nötigen Systemvoraussetzungen für den Betrieb von Vaultwarden erfüllt sind.
-        Einrichtung von Docker Compose: 
-            Erstellen einer docker-compose.yml-Datei, die die Container für Vaultwarden und gegebenenfalls eine dazugehörige Datenbank (z.B. SQLite, MySQL, oder PostgreSQL) definiert.
-        Starten von Vaultwarden: 
-            Starten des Docker Compose Stacks und Überprüfung, dass der Dienst korrekt läuft.
-        Absicherung des Systems: 
-            Implementierung von Sicherheitsmaßnahmen, wie etwa die Nutzung eines Reverse Proxy (z.B. NGINX) mit SSL-Verschlüsselung, um eine sichere Verbindung zur Weboberfläche von Vaultwarden zu gewährleisten.
-        
-        Backup- und Wiederherstellungsstrategie: 
-            Erstellung eines Plans für regelmäßige Backups der Vaultwarden-Datenbank und Anleitung zur Wiederherstellung im Fehlerfall.
-
-![](images/teleport-welcome.png)
-![](images/teleport-password.png)
-![](images/Keepass%201.png)
-
-
-### Keepass
-
-1. Bild QR Code speichern
-2. Hochladen auf https://scanqr.org/
-3. 
+Eine nützliche Möglichkeit, die die Nutzung von Git (mit Gitea, Gitlab, GitHub, o.ä.) bietet, ist die automatisierte Ausbringung der Umgebung bei Änderungen mittels einer CI/CD Pipeline. Hierzu wird in diesem Kapitel die Installation und Konfiguration des Dienstes, der die CI/CD Pipelines ausführt, Act Runner, in das bestehende Playbook zur Gitea-Installation integriert. Danach erstellt du eine Pipeline, um bei Änderungen an den Playbooks das Deployment automatisch durchzuführen.
