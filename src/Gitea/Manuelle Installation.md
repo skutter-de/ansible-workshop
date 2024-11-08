@@ -110,5 +110,4 @@ Herzlichen Glückwunsch, die Installation von Gitea ist fertig!
 
 ![fertig](images/04-finish.png)
 
-
-## Damit ist die manuelle Installation abgeschlossen!
+Damit ist die manuelle Installation abgeschlossen!

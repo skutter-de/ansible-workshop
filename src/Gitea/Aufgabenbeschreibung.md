@@ -4,7 +4,7 @@ Ziel dieser Aufgabe ist die Installation des Git-Services Gitea. Hier wird eine 
 
 Für die Installation von Gitea orientieren wir uns an der [offiziellen Installationsanleitung](https://docs.gitea.com/installation/install-from-binary).
 
-Die folgenden Schriite sollen per Ansible auf den Labs umgesetzt werden.
+Die folgenden Schritte sollen per Ansible auf den Labs umgesetzt werden.
 
 Zu deiner Referenz ist unter [Manuelle Installation](./Manuelle%20Installation.md) eine vollständig manuelle Installation dokumentiert. Dort findest du auch einige Tipps zur Automatisierung mit Ansible.
 

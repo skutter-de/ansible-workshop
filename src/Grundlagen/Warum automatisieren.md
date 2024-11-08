@@ -1,53 +1,21 @@
 # Warum automatisieren?
 
-## Vorteile von Ansible
-- **Einfachheit und Benutzerfreundlichkeit:** Ansible verwendet YAML, was leicht zu lesen und zu verstehen ist.
-- **Agentenlose Architektur:** Durch die agentenlose Struktur ist Ansible einfach zu verwalten und sicher, da keine zusätzliche Software auf den Zielsystemen erforderlich ist.
-- **Schnell und zuverlässig:** Ansible ist durch seine einfache Konfiguration und agentenlose Architektur schnell einsetzbar und reduziert die Zeit für Implementierung und Ausführung von Aufgaben.
-- **Hohe Flexibilität:** Es unterstützt eine Vielzahl von Plattformen und kann in heterogenen Umgebungen eingesetzt werden – ob Cloud, On-Premises oder hybride Infrastruktur.
-- **Aktive Community und Erweiterbarkeit:** Ansible hat eine große und aktive Community, die viele Plugins, Module und Erweiterungen für Ansible entwickelt, wodurch das Tool ständig verbessert und erweitert wird.
+Automatisierung kann ein komplexes Thema sein, das viele Vor- und auch einige Nachteile mit sich bringt.
 
+## Vorteile
 
+- Wenn man einmal automatisiert hat, kann man damit immer wieder den gwünschten Stand herstellen. Dadurch ist die Anpassung der Konfiguration recht einfach und ein Neudeployment auf einer neuen Maschine unkompliziert.
+- Man kann durch die Automatisierung einen bestimmten Zustand wahren. Es ist möglich, manuell getätigte Änderungen zurückzuspielen, um wieder zu dem in der Automatisierung festgelegten Standard zurückzukehren.
+- Ansible ist durch seine gute Lesbarkeit selbstdokumentierend. Man muss keine separate Dokumentation für die Installation schreiben, da der Ansible Code die Dokumentation recht gut ersetzen kann.
+- Automatisierung eignet sich auch, um komplexe Umgebungen aus mehreren Komponenten aufzusetzen. Durch immer wiederkehrende, gleiche Abläufe werden dabei Fehlerquellen ausgeschlossen.
+- Dadurch, dass die Automatisierungen als Code geschrieben wird, ist die Konfiguration der Systeme leicht auditierbar, da man sich nicht jedes System einzeln sondern nur die Automatisierung der Systeme anschauen kann.
+- Wiederkehrende Aufgaben, bspw. Software-Updates, können durch Automatisierung stark vereinfacht und beschleunigt werden. Dinge, wie z.B. die Aktualisierung von Servern nacheinander, und nur wenn der vorherige Server wieder erreichar ist, lässt sich dadurch ztuverlässig umsetzen.
 
-# Installation (für den eigenen Gebrauch, hier ist das schon installiert)
+## Nachteile
 
-# -----------------------------
-
-# Grundlegende Konzepte
-#   Playbooks
-#   Tasks
-#   Inventories
-#   Module
-#   Role
-#   Plugins(?)
-
-# wichtige Dateien
-#   ansible.cfg
-#   hosts//inventory
-#   playbooks // steht ja oben
-
-
-
-# Verlinkungen
-#   ansible galaxy
-#   ansible docs
-#   github ansible
-#   netapp --> Zur Not nur zur Präsentation
-#   redhat ansible
-
-
-
-
-# Einfache Ansible Befehle
-
-
-
-# Coole Tipps zum arbeiten in VSC mit Ansible
-
-
-# Projektstruktur (?)
-
-
-
-# Will man das wirklich ?
-#   AAP//AWX
+- Du musst das entsprechende Wissen haben oder aufbauen, um automatisieren und vor allem die Automatisierung langfristig betreiben zu können. Änderungen sollten natürlich nur in der Automatisierung und nicht manuell vorgenommen werden.
+- Man macht sich von der Automatisierung abhängig. Wenn es Probleme mit der Automatisierung, oder den Systemen, gibt, ist durch die Automatisierung der Prozesse möglicherweise Fachwissen über die manuellen Prozesse verloren gegangen, was die Fehlerbehebung negativ beeinträchtigen kann. Außerdem ist man mehr oder weniger handlungsunfähig, wenn die Automatisierung ausfällt.
+- Wenn es Änderungen an dem Automatisierungstool gibt, entstehen eventuell ungeplante Aufwände, um die Automatisierung anzupassen.
+- Wenn du Automatisierung fehlerhaft ist, kann man die ganze Umgebung lahm legen.
+- Fehlerhafte Automatisierung kann ein Einfallstor für Angreifer bieten, da man bei Übernahme der steuernden Instanz großflächig Backdoors deployen oder andere Schäden anrichten kann.
+- Die Behandlung von Spezialfällen verursacht zusätzliche Aufwände.
