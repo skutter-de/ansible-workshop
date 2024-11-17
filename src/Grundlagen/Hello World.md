@@ -1,4 +1,4 @@
-# Dein erstes Playbook mit Hello World
+# Hello World! Dein erstes Playbook
 
 Auf dieser Seite lernst du, ein einfaches Ansible-Playbook zu erstellen und auszuführen. Dieses Playbook gibt eine "Hello-World"-Nachricht auf jedem Host aus, den du in deinem Inventory definiert hast.
 
@@ -7,7 +7,6 @@ Dafür erstellst du nun eine Datei namens **hello-world.yml** und fügst folgend
 ### Hello-World Playbook
 
 ```yaml
----
 - name: Hello World Playbook  # Name des gesamten Plays
   hosts: all                  # Definiert, auf welche Hosts dieses Playbook angewendet wird
   remote_user: root           # es soll sich als root user auf den Zielsystem authorisiert werden
@@ -16,7 +15,6 @@ Dafür erstellst du nun eine Datei namens **hello-world.yml** und fügst folgend
     - name: Print Hello World message
       ansible.builtin.debug:  # Ansible-Modul "debug", das eine Nachricht ausgibt
         msg: "Hello, World!"  # Die Nachricht, die angezeigt werden soll
-
 ```
 
 **name:** Ein Name für das Playbook, mit den Zweck das Playbook zu erkennen.

@@ -5,5 +5,4 @@ all:
   hosts:
     git.lab.internal:
     vault.lab.internal:
-
 ```

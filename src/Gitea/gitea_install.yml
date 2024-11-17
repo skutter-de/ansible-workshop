@@ -1,21 +1,23 @@
 - name: Gitea install
-  hosts: git
+  hosts: git.lab.internal
   remote_user: root
   tasks:
     - name: Create a system group 'git'
       ansible.builtin.group:
         name: git
         system: true
+        state: present
 
     - name: Create a system user 'git' with specific settings
       ansible.builtin.user:
         name: git
-        system: true
-        shell: /bin/bash
         comment: "Git Version Control"
         group: git
-        home: /home/git
+        system: true
         create_home: true
+        home: /home/git
+        shell: /bin/bash
+        state: present
 
     - name: Create Gitea directories
       ansible.builtin.file:
