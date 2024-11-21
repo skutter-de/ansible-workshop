@@ -5,9 +5,6 @@
 Ansible ist ein leistungsfähiges Open-Source-Tool für IT-Automatisierung, das die Bereitstellung und Verwaltung von IT-Infrastruktur in einem konsistenten, reproduzierbaren und agentenlosen Ansatz ermöglicht. Es ist besonders beliebt für Aufgaben wie Konfigurationsmanagement, Softwarebereitstellung, Netzwerkautomatisierung und Orchestrierung komplexer Workflows.
 
 
-# Was kann man alles managen?
-
-
 ## Vorteile von Ansible
 - **Einfachheit und Benutzerfreundlichkeit:** Ansible verwendet YAML, was leicht zu lesen und zu verstehen ist.
 - **Agentenlose Architektur:** Durch die agentenlose Struktur ist Ansible einfach zu verwalten und sicher, da keine zusätzliche Software auf den Zielsystemen erforderlich ist.
@@ -42,23 +39,6 @@ Eine **Control Node** ist das System, auf dem die Ansible-CLI-Tools (ansible-pla
 
 Für die **"Control Node"** (das System, auf dem Ansible läuft) kann fast jeder UNIX-ähnlichen Rechner verwenden, auf dem Python installiert ist. Dazu gehören Red Hat, Debian, Ubuntu, macOS, BSD und Windows unter einer Windows Subsystem for Linux (WSL) Distribution. Windows ohne WSL wird nicht von Haus aus als "Control Node" unterstützt;
 
-# Installation (für den eigenen Gebrauch, hier ist das schon installiert)
-
-# -----------------------------
-
-# Grundlegende Konzepte
-#   Playbooks
-#   Tasks
-#   Inventories
-#   Module
-#   Role
-#   Plugins(?)
-
-# wichtige Dateien
-#   ansible.cfg
-#   hosts//inventory
-#   playbooks // steht ja oben
-
 
 
 # Verlinkungen
@@ -77,10 +57,3 @@ Für die **"Control Node"** (das System, auf dem Ansible läuft) kann fast jeder
 
 # Coole Tipps zum arbeiten in VSC mit Ansible
 
-
-# Projektstruktur (?)
-
-
-
-# Will man das wirklich ?
-#   AAP//AWX

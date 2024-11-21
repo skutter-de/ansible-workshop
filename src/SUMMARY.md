@@ -20,9 +20,9 @@
     - [Aufgabenbeschreibung](./Gitea/Aufgabenbeschreibung.md)
     - [Manuelle Installation](./Gitea/Manuelle%20Installation.md)
     - [Lösung](./Gitea/Lösung.md)
-- [Aufgabe: Installation von Vaultwarden]()
-    - [Aufgabenbeschreibung]()
-    - [Manuelle Instalation]()
-    - [Lösung]()
+- [Aufgabe: Installation von Vaultwarden](./Vaultwarden/Intro.md)
+    - [Aufgabenbeschreibung](./Vaultwarden/Aufgabenbeschreibung.md)
+    - [Manuelle Instalation](./Vaultwarden/Manuelle%20Installation.md)
+    - [Lösung](./Vaultwarden/Lösung.md)
 
 [Fazit]()
