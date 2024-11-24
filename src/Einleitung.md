@@ -4,7 +4,7 @@ Herzlich Willkommen im Ansible-Workshop. Hier sollen dir die Grundzüge von Ansi
 
 ## Ziel des Workshops
 
-Das Ziel dieses Workshops soll es sein, ein grundlegendes Grundverständnis von Ansible zu vermitteln. Dabei soll klar werden, für welche Zwecke Ansible genutzt werden kann und welche Vorteile es bietet. Hierbei steht die praktische Anwendung im Vordergrund, die Theorie spielt hier nur eine nachrangige Rolle. Viele Tricks und technische Details lernt man mit wachsender Erfahrung in der Anwendung.
+Das Ziel dieses Workshops soll es sein, ein grundlegendes Verständnis von Ansible zu vermitteln. Dabei soll klar werden, für welche Zwecke Ansible genutzt werden kann und welche Vorteile es bietet. Hierbei steht die praktische Anwendung im Vordergrund, die Theorie spielt hier nur eine nachrangige Rolle. Viele Tricks und technische Details lernt man mit wachsender Erfahrung in der Anwendung.
 
 ## Aufbau der Workshop-Umgebung
 
