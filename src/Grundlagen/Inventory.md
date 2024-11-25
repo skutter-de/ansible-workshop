@@ -27,7 +27,7 @@ Jede Gruppe enthält spezifische Hosts. Diese Unterteilung erleichtert es, besti
 In diesem Beispiel kommt der Host ***combined-host-1.example.com*** in beiden Gruppen vor. Das ist zulässig und unter gewissen Umständen sinnvoll. Wenn nun ein Playbook ausgeführt wird und auf die Gruppe ***webserver*** abzielt, wird dieser eben wie ein Webserver behandelt. Bei ***databases*** verhält es sich genau so. Wichtig ist hierbei jedoch, dass es keine doppelten Ausführungen gibt, sollten beide Gruppen angesprochen werden.
 
 
-### Schreibe ein Inventory für das Lab!
+### Aufgabe: Schreibe ein Inventory für das Lab!
 
 Es soll ein Inventory geschrieben werden, welches in diesem Lab benutzt werden kann.
 In diesem soll es eine Gruppe **all** geben, mit folgenden Hosts:

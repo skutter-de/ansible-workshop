@@ -29,7 +29,7 @@ Die benötigten Python-Pakete und Abhängigkeiten werden automatisch installiert
 
 ### Control Node
 
-Eine **Control Node** ist das System, auf dem die Ansible-CLI-Tools (ansible-playbook, ansible, ansible-vault und andere) ausgeführt werden können. Es kann jeder Computer, der die Softwareanforderungen erfüllt, als Control Node verwenden - Laptops, gemeinsam genutzte Desktops und Server können alle Ansible ausführen. Es kann Ansible auch in Containern (Podman) ausgeführt werden.
+Eine **Control Node** ist das System, auf dem die Ansible-CLI-Tools wie ansible-playbook, ansible, ansible-vault und andere ausgeführt werden. Jeder Computer, der die Softwareanforderungen erfüllt, kann als Control Node dienen – von Laptops und gemeinsam genutzten Desktops bis hin zu Servern. Ansible kann zudem in Containern wie Docker oder Podman betrieben werden. Für erweiterte Funktionen, wie eine grafische Benutzeroberfläche (GUI), eine API oder zusätzliche Steuerungsmöglichkeiten, stehen Tools wie die Ansible Automation Platform, die Open-Source-Variante AWX oder Semaphore zur Verfügung, die über die Funktionen der CLI-Tools hinausgehen.
 
 ### Managed Node
 

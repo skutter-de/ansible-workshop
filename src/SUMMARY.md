@@ -13,9 +13,6 @@
     - [Inventory-Lösung](Grundlagen/Inventory%20Lösung.md)
     - [Hello World! Dein erstes Playbook](Grundlagen/Hello%20World.md)
     - [Ansible-Dokumentation verstehen]()
-
-# Aufgaben
-
 - [Aufgabe: Installation von Gitea](./Gitea/Intro.md)
     - [Aufgabenbeschreibung](./Gitea/Aufgabenbeschreibung.md)
     - [Manuelle Installation](./Gitea/Manuelle%20Installation.md)

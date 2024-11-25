@@ -41,12 +41,27 @@ ansible-playbook -i inventory/inventory.yml hello-world.yml
 Anbei ist die Ausgabe, welche durch das Playbook erzeugt wird.
 
 ```
-PLAY [Hello World Playbook] ***************************************************************
+PLAY [Hello World Playbook] ********************************************************************************************************************************************************************
 
-TASK [Print Hello World message] **********************************************************
-ok: [hostname] => {
+TASK [Gathering Facts] *************************************************************************************************************************************************************************
+[WARNING]: Platform linux on host git.lab.internal is using the discovered Python interpreter at /usr/bin/python3.9, but future installation of another Python interpreter could change the
+meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more information.
+ok: [git.lab.internal]
+[WARNING]: Platform linux on host vault.lab.internal is using the discovered Python interpreter at /usr/bin/python3.9, but future installation of another Python interpreter could change the
+meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more information.
+ok: [vault.lab.internal]
+
+TASK [Print Hello World message] ***************************************************************************************************************************************************************
+ok: [git.lab.internal] => {
     "msg": "Hello, World!"
 }
+ok: [vault.lab.internal] => {
+    "msg": "Hello, World!"
+}
+
+PLAY RECAP *************************************************************************************************************************************************************************************
+git.lab.internal           : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vault.lab.internal         : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
 

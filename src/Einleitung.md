@@ -4,11 +4,11 @@ Herzlich Willkommen im Ansible-Workshop. Hier sollen dir die Grundzüge von Ansi
 
 ## Ziel des Workshops
 
-Das Ziel dieses Workshops soll es sein, ein grundlegendes Verständnis von Ansible zu vermitteln. Dabei soll klar werden, für welche Zwecke Ansible genutzt werden kann und welche Vorteile es bietet. Hierbei steht die praktische Anwendung im Vordergrund, die Theorie spielt hier nur eine nachrangige Rolle. Viele Tricks und technische Details lernt man mit wachsender Erfahrung in der Anwendung.
+Das Ziel dieses Workshops soll es sein, ein grundlegendes Verständnis von Ansible zu vermitteln. Dabei soll klar werden, für welche Zwecke Ansible genutzt werden kann und welche Vorteile es bietet. Hierbei steht die praktische Anwendung im Vordergrund, die Theorie spielt eine nachrangige Rolle. Mit zunehmender Erfahrung in der Anwendung erschließt du dir immer mehr Tricks und technische Feinheiten.
 
 ## Aufbau der Workshop-Umgebung
 
-Du bekommst Zugriff auf ein eigenes kleines Netzwerk. So kann bspw. ein kleines Homelab oder eine Testumgebung aussehen. Die Umgebung ist auf das wesentliche beschränkt, um eine sinnvolle Umgebung zum Lernen zu bieten. Viele Dienste, die in großen Umgebungen üblich sind (Internetproxy, Loggingserver, Monitoring, Mirror-Server für Repositories, etc.), sind hier allerdings nicht vorhanden.
+Du erhältst Zugriff auf ein eigenes, kompaktes Netzwerk, das als Beispiel für ein kleines Homelab oder eine Testumgebung dient. Die Umgebung ist auf das Wesentliche reduziert, um eine optimale Lernumgebung zu schaffen. Dienste, die in größeren Netzwerken häufig anzutreffen sind, wie Internet-Proxys, Logging-Server, Monitoring-Systeme oder Mirror-Server für Repositories, sind hier jedoch nicht enthalten.
 
 Das Netzwerk besteht aus folgenden Maschinen und Diensten:
 
@@ -36,11 +36,11 @@ architecture-beta
     labnetworkbottom:R -- L:vault
 ```
 
-Der Bastion Host ist die Maschine, die für Entwicklungs- und Administationszwecke verwendet wird. Oftmals stehen Bastion Hosts in einer so genannten [DMZ (demilitarisierten Zone)](https://de.wikipedia.org/wiki/Demilitarisierte_Zone_(Informatik)). Hier wurde allerdings, aufgrund der hohen Komplexität, auf eine DMZ verzichtet.
+Der Bastion Host ist die Maschine, die für Entwicklungs- und Administationszwecke verwendet wird. Oftmals stehen Bastion Hosts in einer so genannten [DMZ (demilitarisierten Zone)](https://de.wikipedia.org/wiki/Demilitarisierte_Zone_(Informatik)). Aufgrund der hohen Komplexität wurde in diesem Fall bewusst auf die Implementierung einer DMZ verzichtet.
 
-Auf dem Git Server wird im Rahmen des Workshops die Software Gitea installiert. Er stellt ein Zielsystem für Ansible dar.
+Im Rahmen des Workshops wird auf dem Git-Server die Software Gitea installiert. Dieser Server dient als Zielsystem für Ansible.
 
-Auf dem Vaultwarden Server wird, bei ausreichender Zeit, der Passwortmanager Vaultwarden installiert. Auch dieser Server stellt ein Zielsystem für Ansible dar.
+Wenn du den Workshop zügig durcharbeitest, kannst du auf dem Vaultwarden-Server den Passwortmanager Vaultwarden installieren. Auch dieser Server dient als Zielsystem für Ansible.
 
 Hier sind nochmal alle Server mit FQDN und IP-Adresse aufgeführt:
 
@@ -58,19 +58,19 @@ Der Zugriff auf die Umgebung ist mit Teleport realisiert. Dazu wird ein Account 
 
 ### Arbeiten mit Visual Studio Code
 
-Als erstes werden dir einige grundlegende Dinge zu der Arbeit mit dem Editor, Visual Studio Code (bzw. der Web-Variante code-server), erklärt. Hierdurch soll dir der Umgang und die Bearbeitung der Aufgaben etwas erleichtert werden.
+Zu Beginn werden dir einige grundlegende Aspekte zur Arbeit mit dem Editor Visual Studio Code (oder der Web-Variante Code-Server) vermittelt. Dies soll dir den Umgang erleichtern und die Bearbeitung der Aufgaben unterstützen.
 
-### Ansible-Grundlagen
+### 1. [Ansible-Grundlagen](Ansible_Grundlagen.md)
 
-Bevor wir mit den Aufgaben beginnen, werden dir hier einige Grundlagen vermittelt. Von einem Überblick der Verzeichnisstruktur, über das Lesen der Ansible-Dokumentation bishin zum Schreiben des ersten Playbooks ist hier alles zu finden, um dir einen schnellen Einstieg zu ermöglichen. Im Laufe der Aufgaben kannst du dieses Kapitel auch referenzieren, wenn du dir Dinge nochmal in Erinnerung rufen oder dir die genaue Syntax möchtest.
+Bevor wir mit den Aufgaben starten, erhältst du hier eine Einführung in die wichtigsten Grundlagen. Von einem Überblick über die Verzeichnisstruktur und dem Umgang mit der Ansible-Dokumentation bis hin zum Erstellen deines ersten Playbooks findest du hier alles, was dir den Einstieg erleichtert. Dieses Kapitel dient dir während der Aufgaben zudem als Nachschlagewerk, falls du bestimmte Inhalte auffrischen oder die genaue Syntax überprüfen möchtest.
 
-### Installation von Gitea
+### 2. [Aufgabe: Installation von Gitea](Gitea/Intro.md)
 
-In dieser ersten Aufgabe sollst du die Installation der Quellcodeverwaltungssoftware Gitea automatisieren. Die Installation der Software ist recht einfach, aber hat trotzdem genug Schritte, um eine automatisierte Installation empfehlenswert zu machen. Eine händische Installation wäre natürlich schneller als die Automatisierung (für mich ca. 10 Minuten vs. ca. 45 Minuten), allerdings ist der reine Zeitaufwand für die Installation nicht der Hauptgrund, der eine Automatisierung sinnvoll macht.
+In dieser ersten Aufgabe wirst du die Installation der Quellcodeverwaltungssoftware Gitea automatisieren. Obwohl die Installation an sich recht einfach ist, umfasst sie genügend Schritte, um eine Automatisierung sinnvoll zu gestalten. Zwar wäre eine manuelle Installation schneller (bei mir etwa 10 Minuten im Vergleich zu rund 45 Minuten für die Automatisierung), jedoch liegt der Hauptnutzen der Automatisierung nicht allein im Zeitaufwand. Vielmehr bietet sie Vorteile wie Wiederholbarkeit, Konsistenz und Skalierbarkeit, die gerade in größeren oder komplexeren Umgebungen unverzichtbar sind.
 
-### Installation von Vaultwarden
+### 3. [Aufgabe: Installation von Vaultwarden](Vaultwarden/Intro.md)
 
-Wenn du noch genug Zeit hast, oder das zu einem anderen Zeitpunkt machen möchtest, kannst du hier als zweite Aufgabe die Installation des Passwortmanager Vaultwarden automatisieren. Die Installation erfolgt hier als Docker-Container mit Docker Compose. Das Playbook, oder auch die Daten kannst du ganz einfach zu einem eigenen Server mitnehmen und dir damit deine eigene Vaultwarden-Instanz deployen. Viel Software wird per Docker Compose installiert, daher kann man auch viel von dem Code und dem Wissen weiter verwenden. Vaultwarden ist hier ein sehr einfaches (und nützliches!) Beispiel.
+Wenn du noch genügend Zeit hast oder diese Aufgabe später angehen möchtest, kannst du als zweite Aufgabe die Installation des Passwortmanagers Vaultwarden automatisieren. Die Installation erfolgt in diesem Fall über einen Docker-Container mit Docker Compose. Das erstellte Playbook sowie die zugehörigen Daten kannst du problemlos auf einen anderen Server übertragen, um dir eine eigene Vaultwarden-Instanz bereitzustellen. Da viele Softwarelösungen per Docker Compose installiert werden, kannst du den erstellten Code und das erworbene Wissen auch in anderen Projekten wiederverwenden. Vaultwarden bietet hierfür ein einfaches, aber äußerst nützliches Beispiel.
 
 ---
 

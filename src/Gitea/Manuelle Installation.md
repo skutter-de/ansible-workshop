@@ -29,12 +29,21 @@ Für das Anlegen der Gruppe kannst du das Ansible-Modul [ansible.builtin.group](
 ### Erstellung der Verzeichnisstruktur für Gitea
 Es müssen für die Installation mehrere Verzeichnisse angelegt werden.
 1. Unter `/var/lib/gitea` sollen die Verzeichnisse custom, data und log angelegt werden.
-2. Owner und Group für die Verzeichnisse setzen.
-3. Die Berechtigungen setzen
+
 ```shell
 mkdir -p /var/lib/gitea/{custom,data,log}
+```
+
+2. Owner und Group für die Verzeichnisse setzen.
+
+```shell
 chown -R git:git /var/lib/gitea/
-chmod -R 750 /var/lib/gitea/
+```
+
+3. Die Berechtigungen setzen
+
+```shell
+chmod -R 0750 /var/lib/gitea/
 ```
 
 4. Den Ordner `/etc/gitea` erstellen
@@ -43,13 +52,15 @@ chmod -R 750 /var/lib/gitea/
 ```shell
 mkdir /etc/gitea
 chown root:git /etc/gitea
-chmod 770 /etc/gitea
+chmod 0770 /etc/gitea
 ```
 
-Für das Anlegen von Verzeichnissen und Setzen der entsprechenden Ownerships/Berechtigungen kann das Ansible-Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html) verwendet werden.
+> [!Tip]
+> Für Ansible kann man hierfür das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html) verwenden.
+>
+> Das Modul kann allerdings nur ein Pfad gleichzeitig verwendet werden. 
+> Daher ist empfohlen, für custom, data, log eine Schleife zu verwenden und /etc/gitea in einem eigenen Task zu behandeln.
 
-Das Modul kann allerdings nur ein Pfad gleichzeitig verwendet werden. 
-Daher ist empfohlen, für custom, data, log eine Schleife zu verwenden und /etc/gitea in einem eigenen Task zu behandeln.
 
 
 ### Herunterladen und ablegen der Gitea Binary
