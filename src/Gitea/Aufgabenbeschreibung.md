@@ -1,15 +1,14 @@
 # Aufgabenbeschreibung
 
-Ziel dieser Aufgabe ist die Installation des Git-Services Gitea. Hier wird eine manuelle Installation, d.h. ohne fertiges Paket, durchgeführt. Installationspakete nehmen einem einige Schritte ab, die hier durch eine manuelle Installation erforderlich sind.
+Diese Aufgabe führt dich durch die Installation des Git-Dienstes Gitea.
 
-Für die Installation von Gitea orientieren wir uns an der [offiziellen Installationsanleitung](https://docs.gitea.com/installation/install-from-binary).
+Ziel ist es, die Software zu installieren und dabei die Schritte so zu automatisieren, dass sie später auch mit Ansible ausgeführt werden können. Wir orientieren uns dabei an der offiziellen Installationsanleitung von Gitea.
 
-Die folgenden Schritte sollen per Ansible auf den Labs umgesetzt werden.
+## Schritte zur Installation:
 
-Zu deiner Referenz ist unter [Manuelle Installation](./Manuelle%20Installation.md) eine vollständig manuelle Installation dokumentiert. Dort findest du auch einige Tipps zur Automatisierung mit Ansible.
-
-1. **Benutzer anlegen:** Es soll ein Gitea-User und die dazugehörige Gruppe erstellt werden, damit Gitea sicher und isoliert ausgeführt werden kann.
-    Dementsprechend muss der Systemuser: **git** mit der Gruppe: **git** erstellt werden.
+1. Gitea-Benutzer erstellen:
+    Damit Gitea sicher läuft, wird ein spezieller Benutzer git und eine gleichnamige Gruppe benötigt.
+    Aufgabe: Erstelle den Benutzer git mit seiner Gruppe.
 
 2. **Verzeichnisse anlegen:** Es müssen für die Installation mehrere Verzeichnisse angelegt werden.
     - /etc/gitea (root:git // 770)
@@ -17,19 +16,22 @@ Zu deiner Referenz ist unter [Manuelle Installation](./Manuelle%20Installation.m
         - custom
         - data
         - log
+3. Gitea-Binary herunterladen:
+    Lade die aktuelle Gitea-Binary-Datei herunter.
+    Speicher die Datei in **/usr/local/bin/gitea** und stelle sicher, dass sie ausführbar ist.
 
-3. **Die Datei muss heruntergeladen werden:** Die Gitea Binary muss auf das System heruntergeladen werden und an einen globalen Ort mit frei zugänglichen Rechten hinterlegt werden. (/usr/local/bin/gitea)
-
-4. **Der Gitea Service muss per Command oder Service gestartet werden:** Da die Installation damit fertig gestellt worden ist, muss letztendlich der Service gestartet werden. Dies kann entweder durch:
-    - einen Shell-Command
-
-    **oder**
-
-    - durch das schreiben und kopieren einer [.service Datei](https://docs.gitea.com/installation/linux-service)
-
-    erreicht werden.
+4. Gitea-Service starten:
+Starte Gitea entweder direkt über die Kommandozeile oder durch das Erstellen einer .service-Datei:
 
 
+    **Option 1:** Kommandozeile: Führe das Gitea-Startkommando aus.
 
-Anschließend kann, sofern vorhanden, der systemd Service gestartet werden. 
+        
+    **Option 2:** Erstelle eine .service-Datei und aktiviere sie mit systemd.
 
+**Nächste Schritte:**
+
+    Erstelle eine ***gitea-install.yml*** und schreibe darin deinen Code!
+    Nutze Ansible, um die Aufgaben zu automatisieren. Hinweise dazu findest du in der manuellen Installationsanleitung.
+
+Viel Erfolg bei der Installation! 🛠️

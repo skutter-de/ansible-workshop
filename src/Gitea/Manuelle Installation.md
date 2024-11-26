@@ -1,109 +1,107 @@
-# Manuelle Installation
 
-Auf dieser Seite wird die manuelle Installation von Gitea per Binary beschrieben. Dies soll ein Leitfaden für die Erstellung des Ansible-Skripts sein.
+# Installation von Gitea – Schritt-für-Schritt-Anleitung
 
+Diese Anleitung beschreibt die manuelle Installation des Git-Services Gitea. Ziel ist es, alle notwendigen Schritte zur Einrichtung und Automatisierung per Ansible klar darzustellen.
+Hierfür soll in VSC eine gitea-install.yml Datei angelegt werden!
 
-### User und Gruppe für Gitea anlegen
+## Übersicht
 
-Gitea läuft unter einem eigenen User (`git`). Dieser User muss mit seiner Gruppe durch dich angelegt werden. Das geht mit folgendem Befehl:
+Die Installation erfolgt in folgenden Schritten:
+1. **Anlegen eines Systembenutzers** für die sichere Ausführung von Gitea.
+2. **Erstellen der Verzeichnisstruktur** mit den korrekten Berechtigungen.
+3. **Herunterladen und Bereitstellen der Gitea-Binary**.
+4. **Einrichten und Starten des Gitea-Services**.
+5. **Durchführung des First-Install Wizards**.
+
+---
+
+## Detaillierte Installationsanleitung
+
+### 1. Anlegen von Benutzer und Gruppe
+
+Gitea benötigt einen eigenen Benutzer `git`, um sicher isoliert zu laufen. Dies erfolgt mit folgenden Befehlen:
 
 ```shell
 # Gruppe anlegen
 groupadd --system git
 
-# User anlegen
-useradd \
-   --system \
-   --shell /bin/bash \
-   --comment 'Git Version Control' \
-   --gid git \
-   --home-dir /home/git \
-   --create-home \
-   git
+# Benutzer anlegen
+useradd --system --shell /bin/bash --comment 'Git Version Control' --gid git --home-dir /home/git --create-home git
 ```
 
-Für das Anlegen der Gruppe kannst du das Ansible-Modul [ansible.builtin.group](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html) und für das Anlegen des Users das Module [ansible.builtin.user](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html) verwenden.
+**Automatisierung mit Ansible**  
+Verwenden Sie die Module [ansible.builtin.group](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html) und [ansible.builtin.user](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html).
 
+---
 
+### 2. Erstellen der Verzeichnisstruktur
 
-### Erstellung der Verzeichnisstruktur für Gitea
-Es müssen für die Installation mehrere Verzeichnisse angelegt werden.
-1. Unter `/var/lib/gitea` sollen die Verzeichnisse custom, data und log angelegt werden.
+Folgende Verzeichnisse sind erforderlich:
+- `/etc/gitea` (Owner: `root:git`, Rechte: `770`)
+- `/var/lib/gitea/custom`, `/var/lib/gitea/data`, `/var/lib/gitea/log` (Owner: `git:git`, Rechte: `750`)
 
+**Manuelle Erstellung:**
 ```shell
+# Verzeichnisse anlegen
 mkdir -p /var/lib/gitea/{custom,data,log}
-```
-
-2. Owner und Group für die Verzeichnisse setzen.
-
-```shell
-chown -R git:git /var/lib/gitea/
-```
-
-3. Die Berechtigungen setzen
-
-```shell
-chmod -R 0750 /var/lib/gitea/
-```
-
-4. Den Ordner `/etc/gitea` erstellen
-5. Ownership auf root:git und Berechtigung auf 770 stellen
-
-```shell
 mkdir /etc/gitea
+
+# Berechtigungen setzen
+chown -R git:git /var/lib/gitea
+chmod -R 0750 /var/lib/gitea
 chown root:git /etc/gitea
 chmod 0770 /etc/gitea
 ```
 
+**Automatisierung mit Ansible**  
+Nutzen Sie das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html). Für `/var/lib/gitea` empfiehlt sich eine Schleife.
 > [!Tip]
-> Für Ansible kann man hierfür das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html) verwenden.
 >
 > Das Modul kann allerdings nur ein Pfad gleichzeitig verwendet werden. 
 > Daher ist empfohlen, für custom, data, log eine Schleife zu verwenden und /etc/gitea in einem eigenen Task zu behandeln.
 
+---
 
+### 3. Herunterladen und Bereitstellen der Gitea-Binary
 
-### Herunterladen und ablegen der Gitea Binary
-Die Gitea Binary muss auf das System heruntergeladen werden und an einen globalen Ort mit frei zugänglichen Rechten hinterlegt werden.
-1. Herunterladen der Gitea-Binary:
+Die Gitea-Binary wird heruntergeladen und in das globale Verzeichnis `/usr/local/bin` kopiert:
+
 ```shell
 wget -O gitea https://dl.gitea.com/gitea/1.22.3/gitea-1.22.3-linux-amd64
 chmod +x gitea
-```
-2. Kopieren in ein globales Verzeichnis
-```shell
 cp gitea /usr/local/bin/gitea
 ```
 
-Für das herunterladen und ablegen der Datei auf den Zielsystemen kann das Ansible Modul [ansible.builtin.get_url](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html) verwendet werden. Wichtig ist, dass in diesem Modul ebenfalls owner, group und mode festgelegt werden können.
+**Automatisierung mit Ansible**  
+Nutzen Sie das Modul [ansible.builtin.get_url](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html). Legen Sie dabei Owner, Gruppe und Berechtigungen direkt fest.
 
+---
 
-### Gitea starten
-Wie erwähnt, gibt es 2 Wege um Gitea zu starten.
-1. Ausführen von der CLI:
-```shell
-GITEA_WORK_DIR=/var/lib/gitea/ /usr/local/bin/gitea web -c /etc/gitea/app.ini
-```
-2. Erstellen einer .service Datei um Gitea automatisch zu starten. Hierfür verwenden wir folgendes Grundschema: [gitea.service](https://github.com/go-gitea/gitea/blob/release/v1.22/contrib/systemd/gitea.service)
+### 4. Einrichten und Starten des Gitea-Services
+
+Es gibt zwei Möglichkeiten, Gitea zu starten:
+1. **Direkt über die Kommandozeile:**
+   ```shell
+   GITEA_WORK_DIR=/var/lib/gitea/ /usr/local/bin/gitea web -c /etc/gitea/app.ini
+   ```
+
+2. **Einrichtung als Systemd-Service:**  
+Erstellen einer .service Datei um Gitea automatisch zu starten. Hierfür verwenden wir folgendes Grundschema: [gitea.service](https://github.com/go-gitea/gitea/blob/release/v1.22/contrib/systemd/gitea.service)
 
 ```ini
 {{#include gitea.service}}
 ```
 Danach über die CLI auszuführen:
+   ```shell
+   sudo systemctl enable gitea
+   sudo systemctl start gitea
+   ```
 
-```shell
-sudo systemctl enable gitea
-sudo systemctl start gitea
-```
+**Automatisierung mit Ansible**  
+Nutzen Sie [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) zum Übertragen der `.service`-Datei und [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Verwalten des Services und zum reloaden des daemons.
 
-Das Ausführen per CLI ist durch [ansible.builtin.command](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html) Module realisierbar, allerdings nicht erstrebenswert für eine automatisierte Umgebung. 
-
-Um mittels Ansible die .service Datei auf die Zielsysteme einzuspielen, empfehlen wir das [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) Module. Dies setzt allerdings voraus, dass eine entsprechende .service Datei auf der Control-Node vorhanden ist.
-
-Zuletzt kann mithilfe des [ansible.builtin.systemd_service](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_service_module.html) der Systemd Prozess aktiviert und der Daemon reloaded werden.
-
-
-### Ausführen des First-Install Wizards von Gitea
+---
+### 5. Ausführen des First-Install Wizards von Gitea
 
 Bei Teleport gibt es eine "Kachel" mit dem Namen: **gitea-username**. Dort soll nun der "Launch-Button" gedrückt werden.
 
