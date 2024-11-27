@@ -30,7 +30,7 @@ useradd --system --shell /bin/bash --comment 'Git Version Control' --gid git --h
 ```
 
 **Automatisierung mit Ansible**  
-Verwenden Sie die Module [ansible.builtin.group](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html) und [ansible.builtin.user](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html).
+Verwende die Module [ansible.builtin.group](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html) und [ansible.builtin.user](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html).
 
 ---
 
@@ -54,7 +54,7 @@ chmod 0770 /etc/gitea
 ```
 
 **Automatisierung mit Ansible**  
-Nutzen Sie das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html). Für `/var/lib/gitea` empfiehlt sich eine Schleife.
+Nutze das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html). Für `/var/lib/gitea` empfiehlt sich eine Schleife.
 > [!Tip]
 >
 > Das Modul kann allerdings nur ein Pfad gleichzeitig verwendet werden. 
@@ -73,7 +73,7 @@ cp gitea /usr/local/bin/gitea
 ```
 
 **Automatisierung mit Ansible**  
-Nutzen Sie das Modul [ansible.builtin.get_url](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html). Legen Sie dabei Owner, Gruppe und Berechtigungen direkt fest.
+Nutze das Modul [ansible.builtin.get_url](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html). Lege dabei Owner, Gruppe und Berechtigungen direkt fest.
 
 ---
 
@@ -98,7 +98,7 @@ Danach über die CLI auszuführen:
    ```
 
 **Automatisierung mit Ansible**  
-Nutzen Sie [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) zum Übertragen der `.service`-Datei und [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Verwalten des Services und zum reloaden des daemons.
+Nutze [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) zum Übertragen der `.service`-Datei und [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Verwalten des Services und zum reloaden des daemons.
 
 ---
 ### 5. Ausführen des First-Install Wizards von Gitea
