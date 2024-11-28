@@ -2,7 +2,7 @@
 
 Auf dieser Seite lernst du, ein einfaches Ansible-Playbook zu erstellen und auszuführen. Dieses Playbook gibt eine "Hello-World"-Nachricht auf jedem Host aus, den du in deinem Inventory definiert hast.
 
-Dafür erstellst du nun eine Datei namens **hello-world.yml** und fügst folgendes Playbook ein.
+Dafür erstellst du nun eine Datei namens **hello-world.yml** in ??? und fügst folgendes Playbook ein.
 
 ### Hello-World Playbook
 

@@ -1,26 +1,44 @@
-# Aufgabenbeschreibung
+# Installation von Vaultwarden – Aufgabenbeschreibung
 
-Ziel dieser Aufgabe ist die Installation des Passwortmanager-Services Vaultwarden. Hier wird eine manuelle Installation, d.h. ohne fertiges Paket, durchgeführt. Installationspakete nehmen einem einige Schritte ab, die hier durch eine manuelle Installation erforderlich sind.
+Diese Aufgabe führt dich durch die Installation der Passwortverwaltung Vaultwarden.
 
+Ziel ist es, die Software zu installieren und die Schritte so zu automatisieren, dass sie später auch mit Ansible ausgeführt werden können. Wir orientieren uns dabei an den offiziellen Installationsschritten und setzen sie mit Ansible um.
 
 Die folgenden Schritte sollen per Ansible oder manuell auf den Systemen umgesetzt werden.
 
 Zu deiner Referenz ist unter [Manuelle Installation](./Manuelle%20Installation.md) eine vollständig manuelle Installation dokumentiert. Dort findest du auch einige Tipps zur Automatisierung mit Ansible.
 
 
-1. **Docker-Umgebung bereitstellen:**
-Stelle sicher, dass Docker korrekt läuft und der aktuelle Benutzer die notwendigen Berechtigungen hat, um Docker-Container zu verwalten.
-Optional: Installiere docker-compose, falls erforderlich.
+## Schritte zur Installation:
+
+**1. Docker-Repository hinzufügen:**
+Um Docker zu installieren, muss zunächst das Docker-Repository hinzugefügt werden.
 
 
-1.5?. **Netzwerk und Benutzer anlegen + Speicherort:**
-Für die Container-Isolation und Sicherheit:
-Ein Docker-Netzwerk für Vaultwarden erstellen (z. B. vaultwarden-net).
-Sicherstellen, dass der Vaultwarden-Container in einer isolierten Umgebung läuft.
+**2. Docker und Docker Compose installieren:**
+Installiere Docker und Docker Compose, um die Vaultwarden-Umgebung bereitzustellen.
 
 
-2. **Docker-Container für Vaultwarden anlegen:**
-Erstelle eine docker-compose.yml mit den notwendigen Parametern.
+**3. Docker aktivieren und starten:**
+Damit Docker automatisch gestartet wird, aktiviere und starte den Docker-Dienst.
 
-3. **Docker-Container starten:**
-Der Docker Container muss nun gestartet werden.
+
+
+**4. Verzeichnis für Vaultwarden erstellen:**
+Vaultwarden benötigt ein eigenes Verzeichnis, in dem die Daten gespeichert werden.
+
+
+**5. Docker-Compose-Datei für Vaultwarden erstellen:**
+Erstelle eine docker-compose.yml-Datei, um den Vaultwarden-Dienst zu definieren.
+
+
+**6. Vaultwarden mit Docker Compose starten:**
+Starte Vaultwarden mit Docker Compose.
+
+
+
+## Nächste Schritte:
+
+Erstelle ein Ansible-Playbook namens vaultwarden-install.yml und schreibe darin den Code, um die oben genannten Aufgaben zu automatisieren. Hinweise dazu findest du in der detaillierten Installationsanleitung.
+
+**Viel Erfolg bei der Installation!**

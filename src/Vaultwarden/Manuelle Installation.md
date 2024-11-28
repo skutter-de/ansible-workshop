@@ -1,16 +1,83 @@
-# Manuelle Installation
+# Installation von Vaultwarden – Schritt-für-Schritt-Anleitung
 
-1. Installation von Docker-Compose
-```bash
-sudo dnf install docker-compose
+Diese Anleitung beschreibt die Installation von Vaultwarden und wie du die einzelnen Schritte mit Ansible automatisieren kannst. Ziel ist es, Vaultwarden effizient und sicher einzurichten.
+
+## Übersicht
+
+Die Installation erfolgt in folgenden Schritten:
+
+1. Docker-Repository hinzufügen
+
+2. Docker und Docker Compose installieren
+
+3. Docker aktivieren und starten
+
+4. Verzeichnis für Vaultwarden erstellen
+
+5. Docker-Compose-Datei für Vaultwarden erstellen
+
+6. Vaultwarden mit Docker Compose starten
+
+
+---
+
+## Detaillierte Installationsanleitung
+
+### 1. Docker-Repository hinzufügen
+
+Um Docker zu installieren, musst du zunächst das Docker-Repository hinzufügen. Führe folgenden Befehl aus:
+```shell
+curl -o /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
-2. Erstellung einer Docker-Compose Datei
-```bash
-vi docker-compose.yml
-```
+**Automatisierung mit Ansible**
 
-3. Setzen der richtigen Parameter in der Compose Dateis
+Verwende das Modul [ansible.builtin.get_url](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html), um die Repository-Informationen herunterzuladen.
+
+---
+
+### 2. Docker und Docker Compose installieren
+
+Nachdem das Repository hinzugefügt wurde, installierst du Docker und Docker Compose mit folgendem Befehl:
+```shell
+dnf install -y docker-ce docker-ce-cli docker-compose-plugin
+```
+**Automatisierung mit Ansible**
+
+Nutze das Modul [ansible.builtin.dnf](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dnf_module.html) zur Installation der benötigten Pakete.
+
+---
+
+### 3. Docker aktivieren und starten
+
+Nun muss docker mit folgenden Befehlen enabled und gestartet werden:
+```shell
+systemctl enable docker
+systemctl start docker
+```
+**Automatisierung mit Ansible**
+
+Nutze das Modul [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Aktivieren und Starten des Docker-Dienstes.
+
+
+---
+
+### 4. Verzeichnis für Vaultwarden erstellen
+
+Vaultwarden benötigt ein eigenes Verzeichnis für die Daten. Erstelle dieses Verzeichnis mit folgendem Befehl:
+```shell
+mkdir -p /opt/vaultwarden
+chmod 0755 /opt/vaultwarden
+```
+**Automatisierung mit Ansible**
+
+Verwende das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html), um das Verzeichnis /opt/vaultwarden zu erstellen und die entsprechenden Berechtigungen zu setzen.
+
+---
+
+### 5. Docker-Compose-Datei für Vaultwarden erstellen
+
+Erstelle die ***docker-compose.yml***-Datei in deinem Hauptverzeichnis, um den Vaultwarden-Dienst zu definieren. Füge folgende Parameter in die Datei hinzu:
 ```yml
 services:
   vaultwarden:
@@ -18,18 +85,30 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     environment:
-      DOMAIN: "????"
+      DOMAIN: "https://lab100-vaultwarden.teleport.int.skutter.de"
+      SIGNUPS_ALLOWED: "true"
     volumes:
-      - ./vw-data/:/data/   ?????
+      - ./data:/data
     ports:
-      - 80:80
+      - 8000:80
 ```
+**Automatisierung mit Ansible**
 
-4. Starten des Docker-Containers
-```bash
-docker-compose up -d
+Nutze das Modul [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html), um die Konfigurationsdatei zu erstellen und im Verzeichnis /opt/vaultwarden zu speichern.
+
+---
+
+### 6. Vaultwarden mit Docker Compose starten
+
+Zum Starten von Vaultwarden verwende Docker Compose mit folgendem Befehl:
+```shell
+cd /opt/vaultwarden
+docker compose up -d
 ```
+**Automatisierung mit Ansible**
 
-Öffne einen Browser und rufe die URL des Servers auf (z. B. http://<server-ip> oder https://<domain>).
+Nutze das Modul [ansible.builtin.command](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html), um den Befehl docker compose up -d im Verzeichnis /opt/vaultwarden auszuführen und den Container zu starten.
 
-Fertig!
+---
+
+Damit ist die Installation von Vaultwarden abgeschlossen!

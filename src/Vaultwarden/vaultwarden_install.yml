@@ -1,0 +1,50 @@
+- name: Installiere Vaultwarden
+  hosts: vault.lab.internal
+  remote_user: root
+  tasks:
+    - name: Docker-Repository hinzufügen
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+    - name: Docker installieren
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - docker-compose-plugin
+        state: present
+
+    - name: Docker aktivieren und starten
+      ansible.builtin.systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Verzeichnis für Vaultwarden erstellen
+      ansible.builtin.file:
+        path: /opt/vaultwarden
+        state: directory
+        mode: '0755'
+
+    - name: Docker-Compose-Datei für Vaultwarden erstellen ---> oder man macht vorher ne file; ähnlich wie bei gitea.service
+      ansible.builtin.copy:
+        dest: /opt/vaultwarden/docker-compose.yml
+        content: |
+          services:
+            vaultwarden:
+              image: vaultwarden/server:latest
+              container_name: vaultwarden
+              restart: unless-stopped
+              environment:
+                DOMAIN: "https://lab100-vaultwarden.teleport.int.skutter.de"
+                SIGNUPS_ALLOWED: "true"
+              volumes:
+                - ./data:/data
+              ports:
+                - 8000:80
+
+    - name: Vaultwarden mit Docker Compose starten
+      ansible.builtin.command:
+        cmd: docker compose up -d
+        chdir: /opt/vaultwarden
