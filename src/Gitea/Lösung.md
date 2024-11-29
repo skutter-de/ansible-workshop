@@ -46,11 +46,12 @@ Mit dem Modul [ansible.builtin.user](https://docs.ansible.com/ansible/latest/col
 Da wir hier 3 Verzeichnisse mit den gleichen Berechtigungen anlegen, werden wir hier das erste mal eine Schleife verwenden. Wie schon in den Grundlagen erwähnt wird das aktuelle Element in der Variable `item` gespeichert. Dies nutzen wir hier, um die frei Unterverzeichnisse `custom`, `data` und `log` unter `/var/lib/gitea` anzulegen.
 
 ``` yml
-{{#include gitea_install.yml:20:32 }}
+{{#include gitea_install.yml:22:32 }}
 ```
 
 ### Erstellen des /etc/gitea Verzeichnisses mit spezifischen Rechten
 
+Hier wird, ähnlich wie beim vorherigen Task, das Verzeichnis `/etc/gitea` mit den entsprechenden Rechten angelegt. Hier brauchen wir keine Schleife, daher steht hier im Parameter `path` direkt der ganze Pfad.
 
 ``` yml
 {{#include gitea_install.yml:34:40 }}
@@ -65,13 +66,13 @@ Da wir hier 3 Verzeichnisse mit den gleichen Berechtigungen anlegen, werden wir 
 ### Kopieren der gitea.service Datei auf den Zielhost
 
 ``` yml
-{{#include gitea_install.yml:49:55 }}
+{{#include gitea_install.yml:50:56 }}
 ```
 
 ### Aktivieren des Systemd Services mit anschließendem Daemon-Reload
 
 ``` yml
-{{#include gitea_install.yml:56:63 }}
+{{#include gitea_install.yml:58:63 }}
 ```
 
 

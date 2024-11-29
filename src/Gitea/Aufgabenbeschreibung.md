@@ -31,7 +31,7 @@ Starte Gitea entweder direkt über die Kommandozeile oder durch das Erstellen ei
 
 **Nächste Schritte:**
 
-    Erstelle eine ***gitea-install.yml*** und schreibe darin deinen Code!
-    Nutze Ansible, um die Aufgaben zu automatisieren. Hinweise dazu findest du in der manuellen Installationsanleitung.
+Erstelle eine ***gitea-install.yml*** und schreibe darin deinen Code!
+Nutze Ansible, um die Aufgaben zu automatisieren. Hinweise dazu findest du in der manuellen Installationsanleitung.
 
 Viel Erfolg bei der Installation! 🛠️

@@ -56,7 +56,7 @@ chmod 0770 /etc/gitea
 **Automatisierung mit Ansible**  
 Nutze das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html). Für `/var/lib/gitea` empfiehlt sich eine Schleife.
 > [!Tip]
->
+> 
 > Das Modul kann allerdings nur ein Pfad gleichzeitig verwendet werden. 
 > Daher ist empfohlen, für custom, data, log eine Schleife zu verwenden und /etc/gitea in einem eigenen Task zu behandeln.
 
@@ -79,25 +79,32 @@ Nutze das Modul [ansible.builtin.get_url](https://docs.ansible.com/ansible/lates
 
 ### 4. Einrichten und Starten des Gitea-Services
 
-Es gibt zwei Möglichkeiten, Gitea zu starten:
-1. **Direkt über die Kommandozeile:**
-   ```shell
-   GITEA_WORK_DIR=/var/lib/gitea/ /usr/local/bin/gitea web -c /etc/gitea/app.ini
-   ```
+Erstelle eine .service Datei um Gitea automatisch zu starten. Hierfür verwenden wir folgendes Grundschema: [gitea.service](https://github.com/go-gitea/gitea/blob/release/v1.22/contrib/systemd/gitea.service)
 
-2. **Einrichtung als Systemd-Service:**  
-Erstellen einer .service Datei um Gitea automatisch zu starten. Hierfür verwenden wir folgendes Grundschema: [gitea.service](https://github.com/go-gitea/gitea/blob/release/v1.22/contrib/systemd/gitea.service)
+Hierfür erstellst du die Datei `/etc/systemd/system/gitea.service` mit einem Texteditor (in folgendem Beispiel `nano`)
+
+```shell
+nano /etc/systemd/system/gitea.service
+```
+
+Inhalt:
 
 ```ini
 {{#include gitea.service}}
 ```
 Danach über die CLI auszuführen:
    ```shell
-   sudo systemctl enable gitea
-   sudo systemctl start gitea
+   systemctl daemon-reload
+   systemctl enable gitea
+   systemctl start gitea
    ```
 
-**Automatisierung mit Ansible**  
+> [!TIP]
+> Wenn du Probleme mit dem Start von Gitea hast, kannst du versuchen, Gitea manuell per CLI zu starten (beenden mit `<CTRL> + C`)
+> ``` shell
+> GITEA_WORK_DIR=/var/lib/gitea/ /usr/local/bin/gitea web -c /etc/gitea/app.ini
+> ```
+
 Nutze [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) zum Übertragen der `.service`-Datei und [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Verwalten des Services und zum reloaden des daemons.
 
 ---
@@ -107,11 +114,11 @@ Bei Teleport gibt es eine "Kachel" mit dem Namen: **gitea-username**. Dort soll 
 
 ![Teleport-Übersicht](images/01-teleport.png)
 
-Es öffnet sich der Install Wizard von Gitea. Bitte hier **SQLite3** als Datenbank auswählen! Alle anderen Einstellungen sollten auf Standard bleiben. Mit einem Click auf "Erstellen" geht es weiter.
+Es öffnet sich der Install Wizard von Gitea. Bitte hier **SQLite3** als Datenbank auswählen! Alle anderen Einstellungen sollten auf Standard bleiben. Mit einem Click auf "Erstellen" ganz unten auf der Seite geht es weiter.
 
 ![Installations-Wizard](images/02-config.png)
 
-Von dem Reiter "Anmelden" auf "Konto erstellen" wechseln und dort den Admin User registrieren.
+Oben auf der Seite von dem Reiter "Anmelden" auf "Konto erstellen" wechseln und dort den Admin User registrieren.
 
 ![Admin User erstellen](images/03-admin_create.png) 
 
