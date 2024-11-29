@@ -32,7 +32,7 @@
         owner: root
         group: root
 
-    - name: Create Compose file for Docker
+    - name: Copy Compose file for Docker
       ansible.builtin.copy:
         src: files/docker-compose.yml
         dest: /opt/vaultwarden/docker-compose.yml
