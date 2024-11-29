@@ -77,7 +77,7 @@ Verwende das Modul [ansible.builtin.file](https://docs.ansible.com/ansible/lates
 
 ### 5. Docker-Compose-Datei für Vaultwarden erstellen
 
-Erstelle die ***docker-compose.yml***-Datei in deinem Hauptverzeichnis, um den Vaultwarden-Dienst zu definieren. Füge folgende Parameter in die Datei hinzu:
+Erstelle die ***docker-compose.yml***-Datei in deinem ***file***-Verzeichnis, um den Vaultwarden-Dienst zu definieren. Füge folgende Parameter in die Datei hinzu:
 ```yml
 services:
   vaultwarden:
@@ -85,7 +85,7 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     environment:
-      DOMAIN: "https://lab100-vaultwarden.teleport.int.skutter.de"
+      DOMAIN: "LAB-ID+FQDN BITTE AUS TELEPORT ENTNEHMEN"
       SIGNUPS_ALLOWED: "true"
     volumes:
       - ./data:/data
@@ -94,7 +94,7 @@ services:
 ```
 **Automatisierung mit Ansible**
 
-Nutze das Modul [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html), um die Konfigurationsdatei zu erstellen und im Verzeichnis /opt/vaultwarden zu speichern.
+Erstelle vorher die Konfigurationsdatei und verschiebe sie mit folgendem Modul [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) in das Verzeichnis /opt/vaultwarden.
 
 ---
 
