@@ -92,33 +92,22 @@ services:
     ports:
       - 8000:80
 ```
-
-> [!IMPORTANT]
->
-> Der Wert für die Variable `DOMAIN` (URL) ist in Teleport auf der Karte **labXXX-vaultarden** zu finden.
-
 **Automatisierung mit Ansible**
 
-Die Konfigurationsdatei mit der schon korrekt gesetzten `DOMAIN`-Variable ist schon im Verzeichnis `files` zu finden. Kopiere sie mit dem Modul [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) in das Verzeichnis `/opt/vaultwarden`.
+Erstelle vorher die Konfigurationsdatei und verschiebe sie mit folgendem Modul [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) in das Verzeichnis /opt/vaultwarden.
 
 ---
 
 ### 6. Vaultwarden mit Docker Compose starten
 
 Zum Starten von Vaultwarden verwende Docker Compose mit folgendem Befehl:
-
 ```shell
 cd /opt/vaultwarden
 docker compose up -d
 ```
-
-> [!TIP]
-> 
-> Mit dem Befehl `docker compose ps` kannst du prüfen, ob die Container laufen. Der Healthcheck stimmt aktuell aufgrund eines Fehlers nicht. Mit `docker compose logs` kannst du die Logs einsehen
-
 **Automatisierung mit Ansible**
 
-Nutze das Modul [ansible.builtin.command](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html), um den Befehl docker compose up -d im Verzeichnis /opt/vaultwarden auszuführen und den Container zu starten.
+Nutze das Modul [community.docker.docker_compose_v2](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_v2_module.html), um das Projekt Vaultwarden zu starten!
 
 ---
 
