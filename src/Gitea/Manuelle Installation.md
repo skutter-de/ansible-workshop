@@ -92,12 +92,17 @@ Inhalt:
 ```ini
 {{#include gitea.service}}
 ```
-Danach über die CLI auszuführen:
-   ```shell
+Mittels des folgenden Befehls wird die Diensteverwaltung, systemd, angewiesen, seine Dateien neu einzulesen:
+```shell
    systemctl daemon-reload
+```
+
+Danach muss der Dienst noch in den Autostart aufgenommen (`enable`) und anschließend gestartet (`start`) werden:
+
+```shell
    systemctl enable gitea
    systemctl start gitea
-   ```
+```
 
 > [!TIP]
 > Wenn du Probleme mit dem Start von Gitea hast, kannst du versuchen, Gitea manuell per CLI zu starten (beenden mit `<CTRL> + C`)
@@ -105,14 +110,14 @@ Danach über die CLI auszuführen:
 > GITEA_WORK_DIR=/var/lib/gitea/ /usr/local/bin/gitea web -c /etc/gitea/app.ini
 > ```
 
-Nutze [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) zum Übertragen der `.service`-Datei und [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Verwalten des Services und zum reloaden des daemons.
+Nutze [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) zum Übertragen der `.service`-Datei und [ansible.builtin.systemd](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html) zum Verwalten des Services und zum Reloaden des Daemons. Die `.service`-Datei muss auf dem Ansible Controller in dem Verzeichnis `files` abgelegt werden.
 
 ---
 ### 5. Ausführen des First-Install Wizards von Gitea
 
 Bei Teleport gibt es eine "Kachel" mit dem Namen: **gitea-username**. Dort soll nun der "Launch-Button" gedrückt werden.
 
-![Teleport-Übersicht](images/01-teleport.png)
+<img src="images/01-teleport.png" width="55%" style="margin-left: auto; margin-right: auto; display: block; margin-top: 40px; margin-bottom: 40px">
 
 Es öffnet sich der Install Wizard von Gitea. Bitte hier **SQLite3** als Datenbank auswählen! Alle anderen Einstellungen sollten auf Standard bleiben. Mit einem Click auf "Erstellen" ganz unten auf der Seite geht es weiter.
 

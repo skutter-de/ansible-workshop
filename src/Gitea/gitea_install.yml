@@ -43,9 +43,9 @@
       ansible.builtin.get_url:
         url: https://dl.gitea.com/gitea/1.22.3/gitea-1.22.3-linux-amd64
         dest: /usr/local/bin/gitea
-        mode: '0777'
         owner: root
         group: root
+        mode: '0777'
 
     - name: Copy gitea.service
       ansible.builtin.copy:

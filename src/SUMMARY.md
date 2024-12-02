@@ -12,7 +12,7 @@
     - [Das Inventory](Grundlagen/Inventory.md)
     - [Inventory-Lösung](Grundlagen/Inventory%20Lösung.md)
     - [Hello World! Dein erstes Playbook](Grundlagen/Hello%20World.md)
-    - [Ansible-Dokumentation verstehen]()
+    <!-- - [Ansible-Dokumentation verstehen]() -->
 - [Aufgabe: Installation von Gitea](./Gitea/Intro.md)
     - [Aufgabenbeschreibung](./Gitea/Aufgabenbeschreibung.md)
     - [Manuelle Installation](./Gitea/Manuelle%20Installation.md)
@@ -22,4 +22,4 @@
     - [Manuelle Instalation](./Vaultwarden/Manuelle%20Installation.md)
     - [Lösung](./Vaultwarden/Lösung.md)
 
-[Fazit]()
+<!-- [Fazit]() -->

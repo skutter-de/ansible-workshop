@@ -27,6 +27,15 @@ Dafür erstellst du nun eine Datei namens **hello-world.yml** in ??? und fügst 
 
 **tasks:** Hier werden die Aufgaben definiert, die in diesem Playbook ausgeführt werden sollen. In unserem Fall soll das Debug-Modul die "Hello-World" Nachricht ausgeben.
 
+#### Taskstruktur
+
+In dem folgenden Bild ist die Struktur der Tasks farblich hervorgehoben:
+
+<img src="images/playbook-explanation.png" width="100%" style="margin-left: auto; margin-right: auto; display: block; margin-top: 40px; margin-bottom: 40px">
+
+`tasks` ist eine Liste (YAML Liste) von einzelnen Tasks (YAML dictionary). Ein Task besteht aus mehreren Parametern, meistens der Name (`name`), das Modul (hier im Beispiel `ansible.builtin.debug`) und ggf. Bedingungen (`when`) oder Schleifen (`loop`). Die Module haben zusätzlich eigene Parameter. Diese lassen sich durch die Einrückung von den Parametern des Tasks unterscheiden.
+
+Eine genaue Erklärung der Syntax ist in der [Ansible Dokumentation](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) zu finden.
 
 ### Ausführung des Playbooks
 

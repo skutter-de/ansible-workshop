@@ -39,6 +39,6 @@ Starte Vaultwarden mit Docker Compose.
 
 ## Nächste Schritte:
 
-Erstelle ein Ansible-Playbook namens vaultwarden-install.yml und schreibe darin den Code, um die oben genannten Aufgaben zu automatisieren. Hinweise dazu findest du in der detaillierten Installationsanleitung.
+Erstelle ein Ansible-Playbook namens `vaultwarden-install.yml` und schreibe darin den Code, um die oben genannten Aufgaben zu automatisieren. Hinweise dazu findest du in der detaillierten Installationsanleitung.
 
 **Viel Erfolg bei der Installation!**

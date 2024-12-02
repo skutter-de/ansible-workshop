@@ -59,11 +59,26 @@ Hier wird, ähnlich wie beim vorherigen Task, das Verzeichnis `/etc/gitea` mit d
 
 ### Herunterladen der Gitea Binary und ablegen in ein globales Verzeichnis
 
+Mit disem Task wird die Gitea Binary von dem Anbieter heruntergeladen. Erklärung der Parameter:
+
+- `url`: Die zu ladende URL
+- `dest`: Der Pfad auf dem Zielsystem, auf dem die Datei abgelegt werden soll
+- `owner`: Der Besitzer der Datei
+- `group`: Die Gruppe der Datei
+- `mode`: Die Rechte der Datei
+
 ``` yml
-{{#include gitea_install.yml:42:47 }}
+{{#include gitea_install.yml:42:48 }}
 ```
 
 ### Kopieren der gitea.service Datei auf den Zielhost
+
+Mit dem [`ansible.builtin.copy`](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) Modul wird die `gitea.service` Datei von dem Controller aus das Zielsystem hochgeladen. Erklärung der Parameter:
+
+- `dest`: Der Pfad auf dem Zielsystem, auf dem die Datei abgelegt werden soll
+- `owner`: Der Besitzer der Datei
+- `group`: Die Gruppe der Datei
+- `mode`: Die Rechte der Datei
 
 ``` yml
 {{#include gitea_install.yml:50:56 }}
@@ -74,8 +89,6 @@ Hier wird, ähnlich wie beim vorherigen Task, das Verzeichnis `/etc/gitea` mit d
 ``` yml
 {{#include gitea_install.yml:58:63 }}
 ```
-
-
 
 ## Fertiges Playbook
 
