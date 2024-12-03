@@ -1,0 +1,46 @@
+- name: Install Vaultwarden
+  hosts: vault.lab.internal
+  remote_user: root
+  tasks:
+    - name: "Ensure Docker Repository exists"
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: "Ensure Docker and Docker Compose are installed"
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - docker-compose-plugin
+        state: present
+
+    - name: "Ensure docker is enabled and started"
+      ansible.builtin.systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: "Ensure directory for Vaultwarden exists"
+      ansible.builtin.file:
+        path: /opt/vaultwarden
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: "Ensure docker-compose.yml exists and is correct"
+      ansible.builtin.copy:
+        src: docker-compose.yml
+        dest: /opt/vaultwarden/docker-compose.yml
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: "Ensure Compose project is started"
+      community.docker.docker_compose_v2:
+        project_src: /opt/vaultwarden
+        state: present
