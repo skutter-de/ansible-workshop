@@ -33,8 +33,8 @@
         mode: '0755'
 
     - name: "Ensure docker-compose.yml exists and is correct"
-      ansible.builtin.template:
-        src: docker-compose.yml.j2
+      ansible.builtin.copy:
+        src: docker-compose.yml
         dest: /opt/vaultwarden/docker-compose.yml
         owner: root
         group: root
